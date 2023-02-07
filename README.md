@@ -2,6 +2,8 @@
 
 Command line utility to fetch cricket results from MyCricket and format to display in newspaper print.
 
+Visit [MyCricket](https://mycricket.cricket.com.au/) to find a match and get the Match ID.
+
 Example Usage:
 
 ```sh

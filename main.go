@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"embed"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -16,6 +17,11 @@ var (
 	templates embed.FS
 )
 
+const (
+	FormatJSON = "json"
+	FormatText = "text"
+)
+
 func main() {
 	flag.Usage = func() {
 		fmt.Println("Usage:")
@@ -25,6 +31,7 @@ func main() {
 		flag.PrintDefaults()
 	}
 	auth := flag.Bool("auth", false, "configure API Key")
+	j := flag.Bool("j", false, "format output as JSON")
 	flag.Parse()
 
 	// Get Auth Key
@@ -45,11 +52,17 @@ func main() {
 	}
 
 	// Get Match ID
-	if len(os.Args) < 2 {
+	if len(flag.Args()) < 1 {
 		flag.Usage()
 		os.Exit(1)
 	}
-	matchID := os.Args[1]
+	matchID := flag.Arg(0)
+
+	// Format
+	format := FormatText
+	if *j {
+		format = FormatJSON
+	}
 
 	// Grassroots API call
 	client := grassroots.NewClient(apiKey)
@@ -59,11 +72,22 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Run template
-	template, err := template.ParseFS(templates, "templates/matchresults_text.go.tmpl")
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Newspaper template error: %v\n", err)
-		os.Exit(1)
+	if format == FormatJSON {
+		output, err := json.Marshal(match)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "JSON error: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Println(string(output))
+	} else { // Text format
+
+		// Run template
+		template, err := template.ParseFS(templates, "templates/matchresults_text.go.tmpl")
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Newspaper template error: %v\n", err)
+			os.Exit(1)
+		}
+		template.Execute(os.Stdout, match)
 	}
-	template.Execute(os.Stdout, match)
+
 }

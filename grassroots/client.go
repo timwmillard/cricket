@@ -75,7 +75,7 @@ func NewClientWithHTTPClient(client *http.Client, baseURL, authKey string) (*Cli
 }
 
 // doRequest is a convenient function to combine newRequest and do.
-func (c *Client) doRequest(ctx context.Context, method string, path string, reqBody interface{}, respBody interface{}) (*http.Response, error) {
+func (c *Client) doRequest(ctx context.Context, method string, path string, reqBody any, respBody any) (*http.Response, error) {
 	req, err := c.newRequest(ctx, method, path, reqBody)
 	if err != nil {
 		return nil, err
@@ -88,7 +88,7 @@ func (c *Client) doRequest(ctx context.Context, method string, path string, reqB
 }
 
 // newRequest creates a http.Request.  To be pass to the do method.
-func (c *Client) newRequest(ctx context.Context, method string, path string, body interface{}) (*http.Request, error) {
+func (c *Client) newRequest(ctx context.Context, method string, path string, body any) (*http.Request, error) {
 	url, err := c.BaseURL.Parse(path)
 	if err != nil {
 		return nil, err
@@ -115,7 +115,7 @@ func (c *Client) newRequest(ctx context.Context, method string, path string, bod
 }
 
 // do the actual request.
-func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
+func (c *Client) do(req *http.Request, v any) (*http.Response, error) {
 
 	// DEBUG: Uncomment to dump Request
 	// dumpReq, _ := httputil.DumpRequest(req, true)

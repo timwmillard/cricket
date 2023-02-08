@@ -8,6 +8,7 @@
 {{range .Batting}}{{.PlayerShortName}} {{.DismissalText}}	{{.RunsScored}}
 {{end}}Extras {{.TotalExtras}}
 Total {{if eq .NumberOfWicketsFallen 10}}{{.RunsScored}}{{else}}{{.NumberOfWicketsFallen}}/{{.RunsScored}}{{end}}
+Overs {{.OversBowled}}
 Bowling: {{range .Bowling}}{{.PlayerShortName}} {{.OversBowled}}/{{.MaidensBowled}}/{{.RunsConceded}}/{{.WicketsTaken}}; {{end}}
 
 {{end}}

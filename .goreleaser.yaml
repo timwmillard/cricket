@@ -44,7 +44,9 @@ changelog:
 
 brews:
   - name: cricket
-    homepage: https://github.com/timwmillard/homebrew-tap 
+    homepage: https://github.com/timwmillard/homebrew-tap
+    description: Convert MyCricket results to a text format.
+    folder: Formula
     tap:
       owner: timwmillard
       name: homebrew-tap

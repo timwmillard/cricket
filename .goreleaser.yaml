@@ -42,6 +42,13 @@ changelog:
       - '^docs:'
       - '^test:'
 
+brews:
+  - name: cricket
+    homepage: https://github.com/timwmillard/homebrew-tap 
+    tap:
+      owner: timwmillard
+      name: homebrew-tap
+
 # The lines beneath this are called `modelines`. See `:help modeline`
 # Feel free to remove those if you don't want/use them.
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json

@@ -1,6 +1,9 @@
 package grassroots
 
-import "time"
+import (
+	"sort"
+	"time"
+)
 
 type Match struct {
 	BatLimitID      int                 `json:"batLimitId"`
@@ -49,6 +52,20 @@ type Grade struct {
 type MatchScheduleItem struct {
 	MatchDay      int       `json:"matchDay"`
 	StartDateTime time.Time `json:"startDateTime"`
+}
+
+func ScheduleTime(schedule []MatchScheduleItem) string {
+	sort.Slice(schedule, func(i, j int) bool {
+		return schedule[i].MatchDay < schedule[j].MatchDay
+	})
+	var str string
+	for i, day := range schedule {
+		str += day.StartDateTime.Local().Format("Mon 02 Jan 2006 (3:04PM)")
+		if i != len(schedule)-1 {
+			str += ", "
+		}
+	}
+	return str
 }
 
 type Batter struct {

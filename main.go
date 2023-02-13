@@ -81,12 +81,16 @@ func main() {
 		fmt.Println(string(output))
 	} else { // Text format
 
+		funcMap := template.FuncMap{
+			"FormatSchedule": grassroots.ScheduleTime,
+		}
+
 		// Run template
-		template, err := template.ParseFS(templates, "templates/matchresults_text.go.tmpl")
+		tmpl, err := template.New("").Funcs(funcMap).ParseFS(templates, "templates/matchresults_text.go.tmpl")
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Newspaper template error: %v\n", err)
 			os.Exit(1)
 		}
-		template.Execute(os.Stdout, match)
+		tmpl.ExecuteTemplate(os.Stdout, "matchresults_text.go.tmpl", match)
 	}
 }

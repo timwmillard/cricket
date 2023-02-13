@@ -1,5 +1,5 @@
 {{.Grade.Organisation.Name}}
-{{.Grade.Name}}: Round {{.Round.ShortName}}
+{{.Grade.Name}}: Round {{.Round.ShortName}} {{FormatSchedule .MatchSchedule}}
 
 {{(index .Teams 0).DisplayName}} vs {{(index .Teams 1).DisplayName}}
 {{.MatchSummary.ResultText}}

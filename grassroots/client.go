@@ -9,6 +9,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"sort"
 	"time"
 )
 
@@ -19,6 +20,11 @@ func (c *Client) GetMatch(ctx context.Context, legacyMatchID string) (Match, err
 	if err != nil {
 		return Match{}, err
 	}
+
+	// Sort the innings order
+	sort.Slice(match.Innings, func(i, j int) bool {
+		return match.Innings[i].InningsOrder < match.Innings[j].InningsOrder
+	})
 	return match, nil
 }
 

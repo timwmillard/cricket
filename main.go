@@ -22,6 +22,8 @@ const (
 	FormatText = "text"
 )
 
+const version = "v0.1.4"
+
 func main() {
 	flag.Usage = func() {
 		fmt.Println("Usage:")
@@ -32,7 +34,13 @@ func main() {
 	}
 	auth := flag.Bool("auth", false, "configure API Key")
 	j := flag.Bool("j", false, "format output as JSON")
+	v := flag.Bool("version", false, "print the version")
 	flag.Parse()
+
+	if *v {
+		fmt.Println(version)
+		os.Exit(0)
+	}
 
 	// Get Auth Key
 	if *auth {

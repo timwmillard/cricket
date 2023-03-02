@@ -91,6 +91,7 @@ func main() {
 
 		funcMap := template.FuncMap{
 			"FormatSchedule": grassroots.ScheduleTime,
+			"FallOfWickets":  grassroots.FallOfWicketList,
 		}
 
 		// Run template

@@ -9,6 +9,7 @@
 {{end}}Extras {{.TotalExtras}}
 Total {{if eq .NumberOfWicketsFallen 10}}{{.RunsScored}}{{else}}{{.NumberOfWicketsFallen}}/{{.RunsScored}}{{end}}
 Overs {{.OversBowled}}
+FOW: {{FallOfWickets .FallOfWickets}}
 Bowling: {{range .Bowling}}{{.PlayerShortName}} {{.OversBowled}}/{{.MaidensBowled}}/{{.RunsConceded}}/{{.WicketsTaken}}; {{end}}
 
 {{end}}

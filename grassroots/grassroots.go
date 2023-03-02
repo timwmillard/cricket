@@ -1,6 +1,7 @@
 package grassroots
 
 import (
+	"fmt"
 	"sort"
 	"time"
 )
@@ -86,6 +87,24 @@ type FallOfWicket struct {
 	LegacyPlayerID  int    `json:"legacyPlayerId"`
 	PlayerShortName string `json:"playerShortName"`
 	Runs            int    `json:"runs"`
+	Order           int    `json:"order"`
+}
+
+func FallOfWicketList(fow []FallOfWicket) string {
+	sort.Slice(fow, func(i, j int) bool {
+		if fow[i].Runs == fow[j].Runs {
+			return fow[i].Order < fow[j].Order
+		}
+		return fow[i].Runs < fow[j].Runs
+	})
+	var str string
+	for i, f := range fow {
+		str += fmt.Sprintf("%d/%d (%s)", i+1, f.Runs, f.PlayerShortName)
+		if i != len(fow)-1 {
+			str += ", "
+		}
+	}
+	return str
 }
 
 type Fielder struct {
